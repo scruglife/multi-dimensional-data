@@ -19,7 +19,7 @@ ebs_bt_brick <- readRDS(file = "bottom_temperature.rds")
 #   raster::subset(37:40)
 
 plot(ebs_bt_brick, 
-     zlim = c(-2, 15)) # Setting a scale for the z dimension of the individual layers
+     zlim = c(-2, 12)) # Setting a scale for the z dimension of the individual layers
 
 # Raster and raster bricks/stacks use dimension indexing to efficiently structure multidimensional data
 # Raster dimensions are defined by an extent, cell dimensions, and a coordinate reference system.
@@ -43,7 +43,7 @@ ebs_bt_brick <- raster::setZ(ebs_bt_brick,
                              )
 
 plot(ebs_bt_brick, 
-     zlim = c(-2, 15))
+     zlim = c(-2, 12))
 
 ebs_bt_brick@z
 
@@ -64,6 +64,9 @@ raster::writeRaster(x = ebs_bt_brick,
 con_ncdf4 <- ncdf4::nc_open(filename = "temperature.nc", 
                             write = FALSE)
 
+# View the dimensions, variables, variable attributes, and global attributes.
+con_ncdf4
+
 # Retrieve the temperature variable 
 bt_array <- ncdf4::ncvar_get(nc = con_ncdf4,
                  varid = "BT")
@@ -76,7 +79,7 @@ ncdf4::ncatt_get(nc = con_ncdf4,
                  varid = "BT",
                  attname = "units")
 
-dim(bt_array) # Dimensions are 335 x 335 x 6
+dim(bt_array) # Dimensions are 318 x 318 x 4
 
 # Retrieve the BT layer from 2010
 plot(raster::raster("temperature.nc", 
@@ -225,3 +228,4 @@ var.get.nc(ncfile = con_rnetcdf, variable = "SST")
 att.get.nc(ncfile = con_rnetcdf, variable = "SST", attribute = "units")
 
 # The goal for this demo was to provide an intro to the structure and logic of multidimensional data formats. So, we kinda 'cheated' by using the raster package to setup the netCDF file. Setting up a netCDF file from scratch requires defining dimensions using nc_create() and ncdim_def(). The approach to using these functions is similar as creating variables since dimensions are essentially just variables.
+
