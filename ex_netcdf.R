@@ -1,11 +1,16 @@
-# library(coldpool)
+install.packages("ncdf4", "RNetCDF")
 library(ncdf4)
 library(RNetCDF)
+
+# Optional: Install the coldpool package
+# devtools::install_github("afsc-gap-products/coldpool")
+# library(coldpool)
+
 # R Studio tip: Text wrapping
 
 # Load the raster brick by accessing it from the coldpool package or loading it from the rds file
 ebs_bt_brick <- readRDS(file = "bottom_temperature.rds")
-ebs_bt_brick <- coldpool::nbs_ebs_bottom_temperature
+# ebs_bt_brick <- coldpool::nbs_ebs_bottom_temperature
 
 plot(ebs_bt_brick, 
      zlim = c(-2, 15)) # Setting a scale for the z dimension of the individual layers
