@@ -1,3 +1,7 @@
+# Multi-dimensional data formats (netCDF example)
+# Survey-Centric R Users Group, December 15, 2022
+# Sean Rohan <sean.rohan@noaa.gov>
+
 install.packages("raster", "ncdf4", "RNetCDF")
 library(ncdf4)
 library(RNetCDF)
